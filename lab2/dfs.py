@@ -70,14 +70,14 @@ def DFS_i(G, start, goal):
 
     while len(stack) != 0:
         node = stack.pop() 
+        if node == goal:
+            return True, prev
         visited.add(node)
         print(f'visited: {visited}')
         for neigh in G[node]:
             if neigh not in visited and neigh not in stack:
                 prev[neigh] = node
                 stack.append(neigh)
-                if neigh == goal:
-                    return True, prev
     return False, prev
 
 def create_path(prev, start, goal):
@@ -91,14 +91,13 @@ def create_path(prev, start, goal):
         path = key + '--> ' + path
     return path
 
+def main():
+    start = 'Itahari'
+    goal = 'Damak'
+    print(f'start: {start}  goal: {goal}')
 
-
-start = 'Dharan'
-goal = 'Damak'
-print(f'start: {start}  goal: {goal}')
-
-foundPath, prev = DFS_i(G, start, goal)
-print(f'prev ::  {prev}')
-if foundPath:
-    path = create_path(prev, start, goal)
-    print(f'path ::   {path}')
+    foundPath, prev = DFS_i(G, start, goal)
+    print(f'prev ::  {prev}')
+    if foundPath:
+        path = create_path(prev, start, goal)
+        print(f'path ::   {path}')
